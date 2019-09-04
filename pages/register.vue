@@ -9,7 +9,7 @@
     <div>
       验证码：<input type="text" v-model="code"/>
     </div>
-    <div>
+    <div> 
       密码：<input type="text" v-model="password"/>
     </div>
     <div>
@@ -85,7 +85,7 @@ export default {
       }) => {
         if (status === 200) {
           if (data && data.code === 0) {
-            window.location = '/login'
+            // window.location = '/login'
           } else {
           this.errmsg = data.msg
         }

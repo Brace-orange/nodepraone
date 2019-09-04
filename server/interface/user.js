@@ -53,22 +53,22 @@ router.post('/signup', async (ctx) => {
     // return false
   }
   console.log('ggg')
-  // let user = await User.find({
-  //   username
-  // })
-  // console.log('eeeeeeee')
-  // if (user.length) {
-  //   console.log('ma --> yizhuce')
-  //   ctx.body = {
-  //     code: -1,
-  //     msg: '已被注册'
-  //   }
-  //   return
-  // }
+  let user = await User.find({
+    username
+  })
+  console.log('eeeeeeee')
+  if (user.length) {
+    console.log('ma --> yizhuce')
+    ctx.body = {
+      code: -1,
+      msg: '已被注册'
+    }
+    return
+  }
   let nuser = User.create({
     username,
     password,
-    email
+    email,
   })
   console.log('-->before nuser')
   if (nuser) {

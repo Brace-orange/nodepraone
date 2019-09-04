@@ -1,5 +1,5 @@
 export default {
-  dbs: 'mongodb://127.0.0.1/user',
+  dbs: 'mongodb://127.0.0.1:27017/shujuku',
   redis: {
     get host () {
       return '127.0.0.1'
@@ -19,12 +19,18 @@ export default {
       return 'poudarkrgflphfjd'
     },
     get code () {
-        const code = Math.random.toString(16).slice(2, 6).toUpperCase()
-        return code
+      return () => {
+        return Math.random.toString(16).slice(2, 6).toUpperCase()
+      }
+        // const code = Math.random.toString(16).slice(2, 6).toUpperCase()
+        // return code
     },
     get expire () {
-      const time = new Date().getTime() + 60*60*1000
-      return time
+      return () => {
+        new Date().getTime() + 60*60*1000
+      }
+      // const time = new Date().getTime() + 60*60*1000
+      // return time
     }
   }
 }

@@ -34,7 +34,7 @@ app.use(bodyParser({
 app.use(json())
 
 // 链接mongodb
-mongoose.createConnection(dbConfig.dbs, {
+mongoose.connect(dbConfig.dbs, {
   useNewUrlParser: true
 })
 
