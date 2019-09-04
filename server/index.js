@@ -3,7 +3,43 @@ import Koa from 'koa'
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
+import mongoose from 'mongoose'
+import axios from 'axios'
+import bodyParser from 'koa-bodyparser'
+import session from 'koa-generic-session'
+import Redis from 'koa-redis'
+import json from 'koa-json'
+import dbConfig from '../server/dbs/config'
+import passport from './interface/utils/passport'
+import users from './interface/user'
+
 const app = new Koa()
+
+// app.use(axios())
+//配置session
+app.keys = ['mt', 'keykeys']
+app.proxy = true
+app.use(session(
+  {
+    keys: 'mt',
+    prefix: 'mt:uid',
+    store: new Redis()
+  }
+))
+
+app.use(bodyParser({
+  extendTypes: ['json', 'form', 'text']
+}))
+
+app.use(json())
+
+// 链接mongodb
+mongoose.createConnection(dbConfig.dbs, {
+  useNewUrlParser: true
+})
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
@@ -26,6 +62,7 @@ async function start () {
     await nuxt.ready()
   }
 
+  app.use(users.routes(), users.allowedMethods())
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling

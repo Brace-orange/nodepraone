@@ -31,7 +31,7 @@ module.exports = {
   */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/icon',
+    // '@/plugins/icon',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,9 +45,13 @@ module.exports = {
     '@nuxtjs/axios'
   ],
 
-  axios: {
-
-  },
+  // axios: {
+  //   prefix: '/api/',
+  //   proxy: true // Can be also an object with default options
+  // },
+  // proxy: {
+  //   '/api/': { target: 'http://localhost:8080', pathRewrite: {'^/api/': ''} }
+  // },
   /*
   ** Build configuration
   */
