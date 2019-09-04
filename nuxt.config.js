@@ -31,7 +31,8 @@ module.exports = {
   */
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/icon',
+    // '@/plugins/icon',
+    // '~/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -42,12 +43,22 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios'
+    // '@nuxtjs/axios'
   ],
 
   axios: {
-
-  },
+   prefix: '/api/',
+        proxy: true
+     },
+    
+   proxy: {
+       '/api/': {
+          target: 'https://maoyan.com/',
+          pathRewrite: {
+            '^/api/': ''
+          }
+        }
+    },
   /*
   ** Build configuration
   */
@@ -60,6 +71,7 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
+    // vendor:['axios'],
     extend(config, ctx) {
       const svgRule = config.module.rules.find(rule => rule.test.test('.svg'))
       svgRule.exclude = [resolve(__dirname, 'assets/icons/svg')]
@@ -75,6 +87,6 @@ module.exports = {
       })
     },
   },
-    // cache: true,
+    // cache: false,
   }
 }
